@@ -14,6 +14,12 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+# Parameters:
+# destination_fqdn: The Fully Qualified Domain Name of the server meant to receive this IP if the local service is stopped.
+# application_key: Use the following form to create a key https://eu.api.ovh.com/createApp/
+# application_secret: Use the following form to create a key https://eu.api.ovh.com/createApp/
+# consumer_key: Must be obtained before the script can make calls to the API. The provided Python script can be used to help you generate it.
+#
 # Sample Usage on serverA:
 # ovhipfailover::failover { 'x.x.x.x':
 #       destination_fqdn => "serverB.domain.com",
@@ -21,6 +27,7 @@
 #       application_secret => "",
 #       consumer_key => "",
 # }
+# Apply the definition on serverB by just changing the destination_fqdn
 #
 
 define ovhipfailover::failover (
@@ -29,6 +36,7 @@ define ovhipfailover::failover (
   $application_key    = '',
   $application_secret = '',
   $consumer_key       = '') {
+    
   file { "/usr/local/bin/ipfailover.py":
     source  => 'puppet:///modules/net/ovh_ip_failover.py',
     owner   => 'root',
@@ -45,6 +53,5 @@ define ovhipfailover::failover (
     require => File["/usr/local/bin/ipfailover.py"],
   }
 
-  # This package alone should install python dep
   package { "python-requests": ensure => installed, }
 }
