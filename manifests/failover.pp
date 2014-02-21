@@ -25,7 +25,6 @@
 
 define ovhipfailover::failover (
   $ip_to_move         = $name,
-  $interface          = '',
   $destination_fqdn   = '',
   $application_key    = '',
   $application_secret = '',
@@ -35,17 +34,8 @@ define ovhipfailover::failover (
     owner   => 'root',
     group   => 'root',
     mode    => '0700',
-    require => Package["python"],
+    require => Package["python-requests"],
   }
-
-  #
-  #  file { "/usr/share/cluster/ipfailover.sh":
-  #    content => template('net/ocf_ovh_ip_failover.sh.erb'),
-  #    owner   => 'root',
-  #    group   => 'root',
-  #    mode    => '0700',
-  #    require => File["/usr/share/cluster/ipfailover.py"],
-  #  }
 
   file { "/etc/init.d/ipfailover":
     content => template('net/ipfailover.sh.erb'),
@@ -55,11 +45,6 @@ define ovhipfailover::failover (
     require => File["/usr/local/bin/ipfailover.py"],
   }
 
-  package { "python": ensure => installed, }
-
-  #That package alone should install python dep
-  package { "python-requests":
-    ensure  => installed,
-    require => Package["python"]
-  }
+  # This package alone should install python dep
+  package { "python-requests": ensure => installed, }
 }

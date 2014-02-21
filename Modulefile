@@ -1,5 +1,5 @@
 name    'tuxomatic-ovhipfailover'
-version '0.1.0'
+version '0.1.1'
 source ''
 author 'Benjamin Merot'
 license 'GPL v3'
