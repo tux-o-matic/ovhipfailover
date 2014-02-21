@@ -3,7 +3,7 @@ version '0.1.1'
 source ''
 author 'Benjamin Merot'
 license 'GPL v3'
-summary 'Network interface and OVH IP failover managing Puppet module'
+summary 'Network interface and OVH IP failover Puppet module'
 description 'Module to manage a network interface script and manage routing of IP failover on OVH servers.
 Meant to run on RedHat based systems.
 Management of OVH IP failover (with routing accross multiple datacenters) is handled via an init script.
