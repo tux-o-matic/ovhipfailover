@@ -2,7 +2,7 @@
 
 #    Puppet module to manage network interface and IP failover.
 # 	 Based on Python class provided by OVH as part of API client example resources.
-#    Copyright (C) 2014  Benjamin Merot (tux_o_matic@yahoo.com)
+#    Copyright (C) 2014  Benjamin Merot (ben@busyasabee.org)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
