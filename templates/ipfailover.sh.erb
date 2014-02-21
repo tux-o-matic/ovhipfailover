@@ -1,0 +1,105 @@
+#!/bin/sh
+#
+#    Puppet module to manage network interface and IP failover.
+#    Copyright (C) 2014  Benjamin Merot (tux_o_matic@yahoo.com)
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# chkconfig:   - 20 80
+# description: Manages an OVH IP failover routing
+
+. /etc/rc.d/init.d/functions
+
+exec="/usr/local/bin/ipfailover.py"
+prog="ipfailover"
+
+[ -e /etc/sysconfig/$prog ] && . /etc/sysconfig/$prog
+
+lockfile=/var/lock/subsys/$prog
+
+start() {
+    echo -n $"Starting $prog: "
+    python $exec POST /dedicated/server/<%= @fqdn %>/ipMove <%= application_key %> <%= application_secret %> <%= consumer_key %> <%= ip_to_move %>
+    retval=$?
+    echo $retval
+    [ $retval -eq 0 ] && touch $lockfile
+    return $retval
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    python $exec POST /dedicated/server/<%= destination_fqdn %>/ipMove <%= application_key %> <%= application_secret %> <%= consumer_key %> <%= ip_to_move %>
+    retval=$?
+    echo $retval
+    [ $retval -eq 0 ] && rm -f $lockfile
+    return $retval
+}
+
+restart() {
+    stop
+    start
+}
+
+reload() {
+    restart
+}
+
+force_reload() {
+    restart
+}
+
+rh_status() {
+    # run checks to determine if the service is running or use generic status
+    python $exec GET /dedicated/server/<%= @fqdn %>/ipCanBeMovedTo?ip=<%= ip_to_move %> <%= application_key %> <%= application_secret %> <%= consumer_key %>
+    result=$?
+	#echo $result
+    status $result
+}
+
+rh_status_q() {
+    rh_status >/dev/null 2>&1
+}
+
+
+case "$1" in
+    start)
+        start
+		$1
+        ;;
+    stop)
+        stop
+        $1
+        ;;
+    restart)
+        $1
+        ;;
+    reload)
+        rh_status_q || exit 7
+        $1
+        ;;
+    force-reload)
+        force_reload
+        ;;
+    status)
+        rh_status
+        ;;
+    condrestart|try-restart)
+        rh_status_q || exit 0
+        restart
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload|force-reload}"
+        exit 2
+esac
+exit $?

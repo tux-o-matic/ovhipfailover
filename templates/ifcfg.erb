@@ -1,0 +1,16 @@
+DEVICE=<%= device %>
+BOOTPROTO=static
+IPADDR=<%= ipaddress %>
+<% if netmask != false -%>
+NETMASK=<%= netmask %>
+<% end -%>
+ONBOOT=<%= onboot %>
+<% if broadcast != false -%>
+BROADCAST=<%= broadcast %>
+<% end -%>
+<% if network != false -%>
+NETWORK=<%= network.split('/')[0] %>
+<% end -%>
+<% if gateway != false -%>
+GATEWAY=<%= gateway %>
+<% end -%>

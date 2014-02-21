@@ -1,0 +1,25 @@
+{
+  "author": "Benjamin Merot",
+  "checksums": {
+    "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
+    "LICENSE.txt": "a8964fdff69c773bc385158f35052963",
+    "manifests/init.pp": "dca769b02f894488ce30f1a11d7eaaf4",
+    "templates/ifcfg.erb": "cf2114451d67ec5a808f23c0be2d360b",
+    "manifests/failover.pp": "0cd00218c0e95d1a8f1ecbb9347ab965",
+    "templates/ipfailover.sh.erb": "803f7623dc9a8db7d476d02732e75b20",
+    "Modulefile": "c7d88aa582285a8baf2084aebdb1a984",
+    "manifests/interface.pp": "29a612341d3da283257c427767eae4d3",
+    "files/ovh_ip_failover.py": "ee80825b8f9de68748a1c72a38785e4b",
+    "tests/init.pp": "e75ef80c6caeeeb3836e00bd4877bfb6",
+    "README.markdown": "7bcd1aad15e8ddb5f07d9b3b63db57e6"
+  },
+  "dependencies": [],
+  "description": "Module to manage a network interface script and manage routing of IP failover on OVH servers.\nMeant to run on RedHat based systems.\nManagement of OVH IP failover (with routing accross multiple datacenters) is handled via an init script.\nThe script is compatible with cluster resource managers such as rgmanager or Pacemaker to offer a complete HA stack by nesting it under a VIP resource.",
+  "license": "GPL v3",
+  "name": "tuxomatic-ovhipfailover",
+  "project_page": "https://github.com/tux-o-matic/ovh-ip-failover",
+  "source": "",
+  "summary": "Network interface and OVH IP failover managing Puppet module",
+  "types": [],
+  "version": "0.1.0"
+}
