@@ -10,5 +10,28 @@ This Puppet module is meant to ease the implementation of multiple network inter
 
 -------
 
+#### Example 
+To manage in one definition a virtual interface with failover capability provided by OVH:
+Apply the definition on serverB by just changing the destination_fqdn to "serverA" and device name if differently mapped.
+```
+ class { 'ovhipfailover':
+       ipaddress => "x.x.x.x",
+       device => "ethX:X",
+       destination_fqdn => "serverB.domain.com",
+       application_key => "",
+       application_secret => "",
+       consumer_key => "",
+ }
+```
+
+To obtain a consumer key to use on the OVH API after creating an application key and secret, use the embedded Python script.
+Calling the script will return a consumer key and a link to the validation url, you should choose an "illimited" time validity for your consumer key.
+```
+./ovh_ip_failover.py POST /auth/credential <APPLICATION_KEY> <APPLICATION_SECRET>
+```
+
+-------
+
 By using the failover init script in a cluster resource manager such as rgmanager or Pacemaker, a true HA solution can be implemented across multiple OVH datacenters.
 No extra parameter is needed to call the script, nesting it under a VIP resource will ensure the proper migration of the resource chain.
+
