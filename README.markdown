@@ -8,6 +8,7 @@ This Puppet module is meant to ease the implementation of multiple network inter
 #### Manage a failover IP from OVH via an init script
 - Wraps underlying calls to the OVH API to control the routing destination of the IP (works between different data centers).
 - Can control virtual interface state regardless of subnet which isn't possible with OCF scripts such as RedHat's rgmanager.
+
 -------
 
 #### Example 
@@ -33,5 +34,5 @@ Calling the script will return a consumer key and a link to the validation url, 
 -------
 
 By using the failover init script in a cluster resource manager such as rgmanager or Pacemaker, a true HA solution can be implemented across multiple OVH datacenters.
-No extra parameter is needed to call the script, nesting it under a VIP resource will ensure the proper migration of the resource chain.
+No extra parameter is needed to call the script as a standard init script resource.
 
