@@ -2,16 +2,16 @@
 
 This Puppet module is meant to ease the implementation of multiple network interfaces on a server and leverage special network solutions offered by the hosting company OVH.
 #### Network interface via RedHat type network script
-- General network interface, private/public
-- Virtual interfaces, included the ones offered by OVH as part of their vRack solution
+- General network interface, private/public.
+- Virtual interfaces, included the ones offered by OVH as part of their vRack solution.
 
-#### A failover IP from OVH via an init script to control the routing destination of the IP
-- Wraps underlying calls to the OVH API
-
+#### Manage a failover IP from OVH via an init script
+- Wraps underlying calls to the OVH API to control the routing destination of the IP (works between different data centers).
+- Can control virtual interface state regardless of subnet which isn't possible with OCF scripts such as RedHat's rgmanager.
 -------
 
 #### Example 
-To manage in one definition a virtual interface with failover capability provided by OVH:
+You can manage in a single definition a virtual interface with failover capability provided by OVH.
 Apply the definition on serverB by just changing the destination_fqdn to "serverA" and device name if differently mapped.
 ```
  class { 'ovhipfailover':

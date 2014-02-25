@@ -30,6 +30,10 @@ lockfile=/var/lock/subsys/$prog
 
 start() {
     echo -n $"Starting $prog: "
+    <% if $start -%>
+    ifup <%= device %>
+    arping -q -U -c 3 -I <%= device %> <%= ip_to_move %>
+    <% end -%>
     python $exec POST /dedicated/server/<%= @fqdn %>/ipMove <%= application_key %> <%= application_secret %> <%= consumer_key %> <%= ip_to_move %>
     retval=$?
     echo $retval
@@ -39,6 +43,9 @@ start() {
 
 stop() {
     echo -n $"Stopping $prog: "
+    <% if $start -%>
+    ifdown <%= device %>
+    <% end -%>
     python $exec POST /dedicated/server/<%= destination_fqdn %>/ipMove <%= application_key %> <%= application_secret %> <%= consumer_key %> <%= ip_to_move %>
     retval=$?
     echo $retval

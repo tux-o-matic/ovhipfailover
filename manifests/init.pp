@@ -54,6 +54,7 @@ class ovhipfailover (
     application_key => $application_key,
     application_secret => $application_secret,
     consumer_key => $consumer_key,
+    start => $start,
   }
 
 }

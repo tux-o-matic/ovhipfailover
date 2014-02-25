@@ -18,7 +18,8 @@
 # destination_fqdn: The Fully Qualified Domain Name of the server meant to receive this IP if the local service is stopped.
 # application_key: Use the following form to create a key https://eu.api.ovh.com/createApp/
 # application_secret: Use the following form to create a key https://eu.api.ovh.com/createApp/
-# consumer_key: Must be obtained before the script can make calls to the API. The provided Python script can be used to help you generate it.
+# consumer_key: Must be obtained before the script can make calls to the API. The provided Python script can be used to help you
+# generate it.
 #
 # Sample Usage on serverA:
 # ovhipfailover::failover { 'x.x.x.x':
@@ -26,17 +27,18 @@
 #       application_key => "",
 #       application_secret => "",
 #       consumer_key => "",
-# }
+#}
 # Apply the definition on serverB by just changing the destination_fqdn
 #
 
 define ovhipfailover::failover (
   $ip_to_move         = $name,
+  $device             = '',
   $destination_fqdn   = '',
   $application_key    = '',
   $application_secret = '',
-  $consumer_key       = '') {
-    
+  $consumer_key       = '',
+  $start              = false) {
   file { "/usr/local/bin/ipfailover.py":
     source  => 'puppet:///modules/net/ovh_ip_failover.py',
     owner   => 'root',
