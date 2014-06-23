@@ -40,7 +40,7 @@ define ovhipfailover::failover (
   $consumer_key       = '',
   $start              = false) {
   file { "/usr/local/bin/ipfailover.py":
-    source  => 'puppet:///modules/net/ovh_ip_failover.py',
+    source  => 'puppet:///modules/ovhipfailover/ovh_ip_failover.py',
     owner   => 'root',
     group   => 'root',
     mode    => '0700',
@@ -48,7 +48,7 @@ define ovhipfailover::failover (
   }
 
   file { "/etc/init.d/ipfailover":
-    content => template('net/ipfailover.sh.erb'),
+    content => template('ovhipfailover/ipfailover.sh.erb'),
     owner   => 'root',
     group   => 'root',
     mode    => '0700',

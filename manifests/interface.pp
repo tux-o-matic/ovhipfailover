@@ -28,7 +28,7 @@ define ovhipfailover::interface (
   $ovh_vrack       = false) {
   if $ipaddress != '' {
     file { "/etc/sysconfig/network-scripts/ifcfg-${device}":
-      content => template('interface/ifcfg.erb'),
+      content => template('ovhipfailover/ifcfg.erb'),
       owner   => 'root',
       group   => 'root',
       mode    => '0644',
