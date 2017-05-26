@@ -1,5 +1,6 @@
 {
   "author": "Benjamin Merot",
+  "dependencies": [],
   "description": "Module to manage a network interface script and manage routing of IP failover on OVH servers.\nMeant to run on RedHat based systems.\nManagement of OVH IP failover (with routing accross multiple datacenters) is handled via an init script.\nThe script is compatible with cluster resource managers such as rgmanager or Pacemaker to offer a complete HA stack by nesting it under a VIP resource.",
   "license": "GPL-3.0",
   "name": "tuxomatic-ovhipfailover",
