@@ -25,7 +25,7 @@ class ovhipfailover (
     if $manage_pip {
       package { 'python2-pip':
         ensure => 'installed',
-        nofity => Package['ovh'],
+        notify => Package['ovh'],
       }
     }
 
