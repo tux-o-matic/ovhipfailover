@@ -25,7 +25,7 @@ def move(api_endpoint, app_key, app_secret, con_key, ip_failover, ip_dest):
     client = ovh.Client(endpoint=api_endpoint, application_key=app_key,
                         application_secret=app_secret, consumer_key=con_key)
 
-    result = client.post('/ip/' + ip_failover + '/move', to=ip_destination)
+    result = client.post('/ip/' + ip_failover + '/move', to=ip_dest)
 
     print('Moved OVH IP failover')
 
