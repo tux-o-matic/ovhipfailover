@@ -1,12 +1,56 @@
 {
   "author": "Benjamin Merot",
-  "dependencies": [],
   "description": "Module to manage a network interface script and manage routing of IP failover on OVH servers.\nMeant to run on RedHat based systems.\nManagement of OVH IP failover (with routing accross multiple datacenters) is handled via an init script.\nThe script is compatible with cluster resource managers such as rgmanager or Pacemaker to offer a complete HA stack by nesting it under a VIP resource.",
   "license": "GPL-3.0",
   "name": "tuxomatic-ovhipfailover",
   "project_page": "https://github.com/tux-o-matic/ovh-ip-failover",
-  "source": "",
-  "summary": "Network interface and OVH IP failover managing Puppet module",
-  "types": [],
-  "version": "0.4.0"
+  "source": "https://github.com/tux-o-matic/ovh-ip-failover",
+  "summary": "OVH IP failover managing Puppet module",
+  "version": "0.4.0",
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 3.0.0 < 5.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Fedora",
+      "operatingsystemrelease": [
+        "21",
+        "22",
+        "23",
+        "24",
+        "25"
+      ]
+    }
+  ]
 }
