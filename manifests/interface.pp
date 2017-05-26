@@ -34,16 +34,6 @@ define ovhipfailover::interface (
       mode    => '0644',
     }
 
-    if $manage_firewall {
-#      firewall { "100 allow all traffic on ${networkname} to ${device}":
-#        state   => ['NEW'],
-#        proto   => 'all',
-#        source  => "${network}",
-#        iniface => "${device}",
-#        action  => 'accept',
-#      }
-    }
-
     if $start {
       exec { "ifup-${device}":
         refreshonly => true,
