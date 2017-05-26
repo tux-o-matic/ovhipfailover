@@ -15,46 +15,40 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-# Sample Usage on serverA:
-# class { 'ovhipfailover':
-#       ipaddress => "x.x.x.x",
-#       device => "ethX:X",
-#       destination_fqdn => "serverB.domain.com",
-#       application_key => "",
-#       application_secret => "",
-#       consumer_key => "",
-# }
-# Apply the definition on serverB by just changing the destination_fqdn and device if different
-#
 class ovhipfailover (
-  $ipaddress          = '',
-  $device             = '',
-  $onboot             = 'yes',
-  $network            = false,
-  $netmask            = '255.255.255.255',
-  $broadcast          = '255.255.255.255',
-  $gateway            = false,
-  $start              = true,
-  $ovh_vrack          = false,
-  $destination_fqdn   = '',
-  $application_key    = '',
-  $application_secret = '',
-  $consumer_key       = '') {
+  $manage_pip         = true,
+  $use_keepalive      = true,
+) {
 
-  ovhipfailover::interface{ "${device}":
-    network => $network,
-    netmask => $netmask,
-    broadcast => $broadcast,
-    gateway => $gateway,
-    onboot => $onboot,
-  }
-  
-  ovhipfailover::failover{ "${ipaddress}":
-    destination_fqdn => $destination_fqdn,
-    application_key => $application_key,
-    application_secret => $application_secret,
-    consumer_key => $consumer_key,
-    start => $start,
+  if $use_keepalive {
+
+    if $manage_pip {
+      package { 'python2-pip':
+        ensure => 'installed',
+        nofity => Package['ovh'],
+      }
+    }
+
+    if $manage_python_deps and $::osfamily == 'RedHat' and versioncmp($::operatingsystemmajrelease, '6') == 0 {
+      package {'python-argparse':
+        ensure => 'present',
+      }
+    }
+
+    package { 'ovh':
+      ensure   => 'installer',
+      provider => 'pip',
+    }
+
+    file { 'ovh_ip_move':
+      group   => 'root',
+      mode    => '0700',
+      owner   => 'root',
+      path    => '/usr/local/bin/ovh_ip_move.py',
+      require => Package['ovh'],
+      source  => 'puppet:///modules/ovhipfailover/ovh_ip_move.py',
+    }
+
   }
 
 }

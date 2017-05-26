@@ -1,5 +1,5 @@
 #    Puppet module to manage network interface and IP failover.
-#    Copyright (C) 2014  Benjamin Merot (ben@busyasabee.org)
+#    Copyright (C) 2017  Benjamin Merot (ben@busyasabee.org)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by

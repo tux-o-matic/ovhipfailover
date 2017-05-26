@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
 #    Puppet module to manage network interface and IP failover.
-# 	 Based on Python class provided by OVH as part of API client example resources.
-#    Copyright (C) 2014  Benjamin Merot (ben@busyasabee.org)
+#    Copyright (C) 2017  Benjamin Merot (ben@busyasabee.org)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -56,7 +55,7 @@ baseUrl = ""
 applicationKey = ""
 applicationSecret = ""
 consumerKey = ""
-    
+
 def timeDelta():
     serverTime = int(requests.get(baseUrl + "/auth/time").text)
     return serverTime - int(time.time())
@@ -85,11 +84,11 @@ def rawCall(method, path, content = None):
     # For debug : print "%s %s" % (method.upper(), targetUrl)
     result = req(targetUrl, headers=queryHeaders, data=body).text
     return json.loads(result)
-       
+
 def main():
     global baseUrl
     baseUrl = "https://api.ovh.com/1.0"
-    response = ""  
+    response = ""
     if len(sys.argv) < 4:
          print "Not enough arguments\nExpects: <HTTP_VERB> <PATH> <APPLICATION_KEY> <APPLICATION_SECRET> <CONSUMER_KEY> (<REQUEST_BODY_CONTENT>)"
     else:
@@ -103,13 +102,13 @@ def main():
             global applicationKey
             applicationKey = sys.argv[3]
             global applicationSecret
-            applicationSecret = sys.argv[4]            
+            applicationSecret = sys.argv[4]
             try:
                 global consumerKey
-                consumerKey = sys.argv[5]            
+                consumerKey = sys.argv[5]
                 content = dict(ip=sys.argv[6])
             except:
-                pass            
+                pass
             if verb == "get":
                 response = rawCall("get", path)
                 if response is not None:
@@ -148,10 +147,10 @@ def main():
         		    	sys.exit(3)
                     else:
         		    	sys.exit(1)
-                else:    
+                else:
                     response = rawCall("post", path, content)
             else:
 		    	sys.exit(1)
-                		   
+
 if __name__ == "__main__":
     main()
