@@ -16,8 +16,8 @@
 #
 #
 class ovhipfailover (
-  $manage_pip         = true,
-  $use_keepalive      = true,
+  $manage_pip    = true,
+  $use_keepalive = true,
 ) {
 
   if $use_keepalive {
@@ -36,7 +36,7 @@ class ovhipfailover (
     }
 
     package { 'ovh':
-      ensure   => 'installer',
+      ensure   => 'installed',
       provider => 'pip',
     }
 
