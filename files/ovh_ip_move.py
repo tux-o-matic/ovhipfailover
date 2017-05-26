@@ -39,4 +39,4 @@ if __name__ == "__main__":
     parser.add_argument('--ip_destination', dest='ip_destination', help='Destination IP to route to', required=True)
     parser.add_argument('--api_endpoint', dest='api_endpoint', default='ovh-eu', help='OVH API endpoint')
     args = parser.parse_args()
-    move(args.api_endpoint, args.app_key, args.app_secret, args.con_key, args.ip_failover, args.ip_dest)
+    move(args.api_endpoint, args.app_key, args.app_secret, args.con_key, args.ip_failover, args.ip_destination)
