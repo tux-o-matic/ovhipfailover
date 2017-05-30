@@ -16,19 +16,30 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from __future__ import print_function
+from logging.handlers import SysLogHandler
 import argparse
+import logging
 import ovh
-import sys
 
 
-def move(api_endpoint, app_key, app_secret, con_key, ip_failover, ip_dest,
-         to_service):
-    client = ovh.Client(endpoint=api_endpoint, application_key=app_key,
-                        application_secret=app_secret, consumer_key=con_key)
+log = logging.getLogger()
+log.setLevel(logging.INFO)
+syslog = SysLogHandler(address='/dev/log')
+formatter = log.Formatter('%(name)s: %(levelname)s %(message)s')
+syslog.setFormatter(formatter)
+log.addHandler(syslog)
+
+
+def move(api_endpoint, app_key, app_secret, con_key, ip_failover, ip_dest, to_service):
+    client = ovh.Client(endpoint=api_endpoint, application_key=app_key, application_secret=app_secret,
+                        consumer_key=con_key)
 
     result = client.post('/ip/' + ip_failover + '/move', nexthop=ip_dest, to=to_service)
 
-    print('Moved OVH IP failover')
+    if 'taskId' in result and 'function' in result:
+        log.info('Called OVH API function ' + result['function'] + ', returned taskId ' + result['taskId'])
+    else:
+        log.info('Called OVH API')
 
 
 if __name__ == "__main__":
