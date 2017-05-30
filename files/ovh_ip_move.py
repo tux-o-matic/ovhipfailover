@@ -22,10 +22,10 @@ import logging
 import ovh
 
 
-log = logging.getLogger()
+log = logging.getLogger(__name__)
 log.setLevel(logging.INFO)
 syslog = SysLogHandler(address='/dev/log')
-formatter = log.Formatter('%(name)s: %(levelname)s %(message)s')
+formatter = logging.Formatter('%(name)s: %(levelname)s %(message)s')
 syslog.setFormatter(formatter)
 log.addHandler(syslog)
 
@@ -37,7 +37,7 @@ def move(api_endpoint, app_key, app_secret, con_key, ip_failover, ip_dest, to_se
     result = client.post('/ip/' + ip_failover + '/move', nexthop=ip_dest, to=to_service)
 
     if 'taskId' in result and 'function' in result:
-        log.info('Called OVH API function ' + result['function'] + ', returned taskId ' + result['taskId'])
+        log.info('Called OVH API function ' + result['function'] + ', returned taskId ' + str(result['taskId']))
     else:
         log.info('Called OVH API')
 
