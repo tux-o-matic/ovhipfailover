@@ -42,7 +42,7 @@ class ovhipfailover (
 
     file { 'ovh_ip_move':
       group   => 'root',
-      mode    => '0700',
+      mode    => '0755',
       owner   => 'root',
       path    => '/usr/local/bin/ovh_ip_move.py',
       require => Package['ovh'],
