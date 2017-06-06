@@ -25,7 +25,7 @@ import ovh
 log = logging.getLogger('ovhipfailover')
 log.setLevel(logging.INFO)
 syslog = SysLogHandler(address='/dev/log')
-formatter = log.Formatter('%(name)s: %(levelname)s %(message)s')
+formatter = logging.Formatter('%(name)s: %(levelname)s %(message)s')
 syslog.setFormatter(formatter)
 log.addHandler(syslog)
 
