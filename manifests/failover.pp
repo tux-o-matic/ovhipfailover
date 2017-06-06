@@ -39,7 +39,8 @@ define ovhipfailover::failover (
   $application_secret = '',
   $consumer_key       = '',
   $start              = false) {
-  file { "/usr/local/bin/ipfailover.py":
+
+  file { '/usr/local/bin/ipfailover.py':
     source  => 'puppet:///modules/ovhipfailover/ovh_ip_failover.py',
     owner   => 'root',
     group   => 'root',
@@ -47,7 +48,7 @@ define ovhipfailover::failover (
     require => Package["python-requests"],
   }
 
-  file { "/etc/init.d/ipfailover":
+  file { '/etc/init.d/ipfailover':
     content => template('ovhipfailover/ipfailover.sh.erb'),
     owner   => 'root',
     group   => 'root',
@@ -55,5 +56,5 @@ define ovhipfailover::failover (
     require => File["/usr/local/bin/ipfailover.py"],
   }
 
-  package { "python-requests": ensure => installed, }
+  package { 'python-requests': ensure => installed, }
 }
