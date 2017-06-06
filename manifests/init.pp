@@ -16,8 +16,9 @@
 #
 #
 class ovhipfailover (
-  $manage_pip    = true,
-  $use_keepalive = true,
+  $manage_pip         = true,
+  $manage_python_deps = true,
+  $use_keepalive      = true,
 ) {
 
   if $use_keepalive {

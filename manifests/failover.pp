@@ -45,7 +45,7 @@ define ovhipfailover::failover (
     owner   => 'root',
     group   => 'root',
     mode    => '0700',
-    require => Package["python-requests"],
+    require => Package['python-requests'],
   }
 
   file { '/etc/init.d/ipfailover':
@@ -53,7 +53,7 @@ define ovhipfailover::failover (
     owner   => 'root',
     group   => 'root',
     mode    => '0700',
-    require => File["/usr/local/bin/ipfailover.py"],
+    require => File['/usr/local/bin/ipfailover.py'],
   }
 
   package { 'python-requests': ensure => installed, }
